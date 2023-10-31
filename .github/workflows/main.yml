@@ -7,4 +7,4 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - run: |
-          jar cvf Nom.war * && ls
+          jar cvf XavierMANTELLATO.war * && ls
