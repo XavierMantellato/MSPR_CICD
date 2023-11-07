@@ -20,7 +20,7 @@ jobs:
 
   IPFS:
     name: Deploy IPFS
-    need: Deploy AWS
+    needs: Deploy AWS
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
