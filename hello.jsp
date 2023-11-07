@@ -6,6 +6,7 @@
 <body bgcolor=white>
 
 <table border="0">
+    <caption>description</caption>
     <th>
     </th>
 <tr>
