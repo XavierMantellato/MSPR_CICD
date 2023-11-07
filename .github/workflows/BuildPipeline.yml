@@ -57,7 +57,7 @@ jobs:
           ipfs init
           ipfs daemon &
         shell: alpine.sh --root {0}
-      - name: DB dump into IPFS
+      - name: create SSH
         env:
           HOST: ${{ secrets.HOST_DNS }}
           SSH_KEY: ${{ secrets.DB_SSH_KEY }}
@@ -66,6 +66,10 @@ jobs:
           echo "$SSH_KEY" > ~/.ssh/staging.key
           chmod 600 ~/.ssh/staging.key
           cat >>~/.ssh/config <<END
+        shell: alpine.sh --root {0}
+      - name: Dump DB into IPFS
+        run: |
           ssh -i "~/.ssh/staging.key" admin@$HOST -fN -L 0.0.0.0:3307:127.0.0.1:3306
           mysqldump -ucnam -P3307 -p"cnam" films > sauvegarde_films.sql
           ipfs add sauvegarde_films.sql > ipfs_dump
+        shell: alpine.sh --root {0}
