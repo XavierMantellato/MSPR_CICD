@@ -18,7 +18,6 @@ jobs:
         source: "XavierMANTELLATO.war"
         target: "/opt/tomcat/webapps"
 
-name: Sauvegarde d'un fichier sur le réseau IPFS
 on: push
 jobs:
   Deploy:
