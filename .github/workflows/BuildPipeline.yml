@@ -50,8 +50,6 @@ jobs:
           branch: v3.15
           host: ${{ secrets.HOST_DNS }}
           key: ${{ secrets.DB_SSH_KEY }}
-          
-      - name: Install apks
       - run: |
           apk add mysql mysql-client
           apk add openssh
@@ -60,6 +58,7 @@ jobs:
           ipfs daemon &
         shell: alpine.sh --root {0}
       - name: DB dump into IPFS
+        run: |
           ssh -i 'secrets.DB_SSH_KEY' admin@secrets.HOST_DNS -fN -L 0.0.0.0:3307:127.0.0.1:3306
           mysqldump -ucnam -P3307 -p"cnam" films > sauvegarde_films.sql
           ipfs add sauvegarde_films.sql > ipfs_dump
