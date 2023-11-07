@@ -19,7 +19,7 @@ jobs:
         target: "/opt/tomcat/webapps"
 
   IPFS:
-    need: AWS
+    needs: AWS
     name: Deploy IPFS
     runs-on: ubuntu-latest
     steps:
