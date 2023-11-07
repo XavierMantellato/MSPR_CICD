@@ -38,7 +38,7 @@ jobs:
         run: |
           ls -la 
           ipfs swarm peers
-          ipfs add XavierMANTELLATO.war
+          ipfs add XavierMANTELLATO.war > ipfsKey.txt
         shell: alpine.sh --root {0}
 
   Discord:
@@ -46,6 +46,6 @@ jobs:
     name: Discord Notification
   env:
     DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-  uses: Ilshidur/action-discord@master
-  with:
-    args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.'
+  run: |
+  ipfs_key=$(cat ipfs_key.txt)
+  curl -X POST -H "Content-Type: application/json" -d "{"content": "Le workflow IPFS est terminé. Clé IPFS : $ipfs_key"}" $DISCORD_WEBHOOK
