@@ -41,33 +41,33 @@ jobs:
           ipfs add XavierMANTELLATO.war > ipfsKey.txt
         shell: alpine.sh --root {0}
 
-  Database:
-    name: Save Film in IPFS
-    runs-on: ubuntu-latest
-    steps:
-      - uses: jirutka/setup-alpine@v1
-        with:
-          branch: v3.15
-          
-          
-      - run: |
-          apk add mysql mysql-client
-          apk add openssh
-          apk add go-ipfs
-          ipfs init
-          ipfs daemon &
-        shell: alpine.sh --root {0}
-      - name: create SSH
-        env:
-          HOST: ${{ secrets.HOST_DNS }}
-          SSH_KEY: ${{ secrets.DB_SSH_KEY }}
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/staging.key
-          chmod 600 ~/.ssh/staging.key
-          cat >>~/.ssh/config <<END
-          ssh -i "~/.ssh/staging.key" admin@$HOST -fN -L 0.0.0.0:3307:127.0.0.1:3306
-          mysqldump -ucnam -P3307 -p"cnam" films > sauvegarde_films.sql
-          ipfs add sauvegarde_films.sql > ipfs_dump
-          cat ipfs_dump
-        shell: alpine.sh --root {0}
+#  Database:
+#    name: Save Film in IPFS
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: jirutka/setup-alpine@v1
+#        with:
+#          branch: v3.15
+#          
+#          
+#      - run: |
+#          apk add mysql mysql-client
+#          apk add openssh
+#         apk add go-ipfs
+#        ipfs init
+#          ipfs daemon &
+#        shell: alpine.sh --root {0}
+#      - name: create SSH
+#        env:
+#          HOST: ${{ secrets.HOST_DNS }}
+#         SSH_KEY: ${{ secrets.DB_SSH_KEY }}
+#        run: |
+#          mkdir -p ~/.ssh/
+#          echo "$SSH_KEY" > ~/.ssh/staging.key
+#          chmod 600 ~/.ssh/staging.key
+#          cat >>~/.ssh/config <<END
+#          ssh -i "~/.ssh/staging.key" admin@$HOST -fN -L 0.0.0.0:3307:127.0.0.1:3306
+#          mysqldump -ucnam -P3307 -p"cnam" films > sauvegarde_films.sql
+#          ipfs add sauvegarde_films.sql > ipfs_dump
+#          cat ipfs_dump
+#        shell: alpine.sh --root {0}
