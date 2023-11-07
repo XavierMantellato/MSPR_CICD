@@ -62,7 +62,10 @@ jobs:
           HOST: ${{ secrets.HOST_DNS }}
           SSH_KEY: ${{ secrets.DB_SSH_KEY }}
         run: |
-          echo $SSH_KEY > sshKey.txt
-          ssh -i "$SSH_KEY" admin@$HOST -fN -L 0.0.0.0:3307:127.0.0.1:3306
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          ssh -i "~/.ssh/staging.key" admin@$HOST -fN -L 0.0.0.0:3307:127.0.0.1:3306
           mysqldump -ucnam -P3307 -p"cnam" films > sauvegarde_films.sql
           ipfs add sauvegarde_films.sql > ipfs_dump
