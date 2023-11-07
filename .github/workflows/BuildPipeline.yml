@@ -20,5 +20,5 @@ jobs:
         run: |
           ls -la 
           ipfs swarm peers
-          ipfs add XavierMANTELLATO.war
+          ipfs add XavierMANTELLATO.war --to-files /xamantel/myfile
         shell: alpine.sh --root {0}
