@@ -3,14 +3,14 @@
 <head>
 <title>Sample Application JSP Page</title>
 </head>
-<body bgcolor=white>
+<body style="background-color: white;">
 
 <table border="0">
     <caption>description</caption>
     <th>
     </th>
 <tr>
-<td align=center>
+<td style="align-items: center;">
 <img src="images/tomcat.gif" alt="something">
 </td>
 <td>
