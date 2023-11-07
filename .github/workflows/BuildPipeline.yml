@@ -40,3 +40,12 @@ jobs:
           ipfs swarm peers
           ipfs add XavierMANTELLATO.war
         shell: alpine.sh --root {0}
+
+  Discord:
+    needs: IPFS
+    name: Discord Notification
+  env:
+    DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+  uses: Ilshidur/action-discord@master
+  with:
+    args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.'
